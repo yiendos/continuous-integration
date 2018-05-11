@@ -1,0 +1,30 @@
+class_name: WebGuy
+modules:
+    enabled:
+        - WebDriver
+        - Db
+        - Cli
+        -
+            REST:
+                depends: PhpBrowser
+                part: Json
+        - Helper\DbHelper
+        -
+            Helper\MailCatcherHelper:
+                email_url: 'http://33.33.33.58:1080/messages'
+    config:
+        WebDriver:
+            url: 'http://continuous-integration.test'
+            site: continuous-integration
+            browser: chrome
+            window_size: 1024x768
+        REST:
+            depends: PhpBrowser
+            part: Json
+        Db:
+            dsn: 'mysql:host=33.33.33.58;dbname=sites_continuous-integration'
+            user: root
+            password: root
+            populate: true
+            cleanup: true
+            populator: 'export MYSQL_PWD=$password; mysql -u $user -h $host $dbname < $dump'
